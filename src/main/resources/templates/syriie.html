@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+     <style>
+    td a{
+	text-decoration:none;
+	color:black;
+}
+        table {
+font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+text-align: center;
+border-collapse: collapse;
+border-spacing: 5px;
+background: #E1E3E0;
+border-radius: 20px;
+margin: 5% auto;
+}
+th {
+font-size: 22px;
+font-weight: 300;
+padding: 12px 10px;
+border-bottom: 2px solid #F56433;
+color: #F56433;
+}
+tbody tr:nth-child(2) {
+border-bottom: 2px solid #F56433;
+}
+td {
+padding: 10px;
+color: #8D8173;
+}
+    </style>
+</head>
+<body>
+<table>
+		<tr>
+			<th>id</th>
+			<th>Название</th>
+			<th>Сумма</th>
+			<th>Количество</th>
+			<th>Единица измерения</th>
+		</tr>
+		<div th:each="budget : ${syries}">
+		<tr>
+			<td><a th:href="@{/syriies/{id}(id=${budget.getId()})}" th:text="${budget.getId()}"></a></td>
+			<td><a th:href="@{/syriies/{id}(id=${budget.getId()})}" th:text="${budget.getName()}"></a></td>
+			<td><a th:href="@{/syriies/{id}(id=${budget.getId()})}" th:text="${budget.getSumma()}"></a></td>
+			<td><a th:href="@{/syriies/{id}(id=${budget.getId()})}" th:text="${+budget.getKolvo()}"></a></td>
+			<td><a th:href="@{/syriies/{id}(id=${budget.getId()})}" th:text="${budget.getEdinica().getName()}"></a></td>
+		</tr>
+		</div>
+	</table>
+	<a href="/newsyriee">Добавить</a>
+	
+	</br>
+	<a href="/main">Главная страница</a>
+</body>
+</html>

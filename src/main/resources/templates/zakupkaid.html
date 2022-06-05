@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Закупка сырья</title>
+</head>
+<body>
+<p th:text="${zakupka.getDate()}">VALUE</p>
+<p th:text="${zakupka.getKolvo()}">VALUE</p>
+<p th:text="${zakupka.getSotrudnik().getFio()}">VALUE</p>
+<p th:text="${zakupka.getSyrie().getName()}">VALUE</p>
+<a th:href="@{/editZakupkaSyria/{id}(id=${zakupka.getId()})}"  >Update</a>
+<a href="/zakupkaSyria">Закупка сырья</a>
+</body>
+</html>

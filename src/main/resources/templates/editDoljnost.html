@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New edinica</title>
+<style>
+
+	body{
+		font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	}
+	.fieldset{
+		width:400px;
+		height:100%;
+		border-radius:20px;
+		background-color:rgb(30, 150, 189);
+		margin:auto;
+		margin-top:7%;
+	}
+	.fieldset form{
+		padding-top:20px;
+		
+	}
+	.fieldset label{
+		margin-left:10%;
+		margin-top:5%;
+		padding-top:20px;
+		color:white;
+	}
+	.fieldset input[type=text]{
+		padding:5px;
+		width:80%;
+		margin-left:10%;
+		border:1px solid white;
+	}
+	.raz{
+		margin-bottom:20px;
+	}
+	.fieldset input[type=submit]{
+		margin-left:40%;
+		margin-top:20px;
+		margin-bottom:20px;
+		background-color:cornflowerblue;
+		border-radius:4px;
+		border:1px solid cornflowerblue;
+		cursor:pointer;
+		width:80px;
+		height:30px;
+		color:aliceblue;
+		font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	}
+	.fieldset input[type=submit]:hover{
+		opacity:0.7;
+	}
+	</style>
+</head>
+<body style="background-color: rgb(158, 195, 233);">
+<div class="fieldset">
+<form th:method="PATCH" th:action="@{/doljnosti/{id}(id=${doljnost.getId()})}" th:object="${doljnost}">
+<div class="raz">
+</br>
+</div>
+    <label for="edin">Enter Doljnost: </label>
+    <input type="text" th:field="*{name}" id="edin"/>
+    <br/>
+    <input type="submit" value="Update!"/>
+</form>
+</div>
+</body>
+</html>

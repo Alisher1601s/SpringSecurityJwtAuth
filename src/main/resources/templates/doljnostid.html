@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Должность</title>
+</head>
+<body>
+<p th:text="${dolgid.getName()}">VALUE</p>
+<a th:href="@{/doljnosti/{id}/edit/(id=${dolgid.getId()})}">Update</a>
+<a href="/doljnosti">Должности</a>
+<form th:method="DELETE" th:action="@{/doljnosti/{id}(id=${dolgid.getId()})}">
+<input type="submit" value="Delete"/>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Главная страница</title>
+		<style>
+			.tab{
+				overflow:hidden;
+				border:1px solid #ccc;
+				background-color:#f1f1f1;
+			}
+			
+			.tab button{
+				background-color:inherit;
+				float:left;
+				outline:none;
+				cursor:pointer;
+				padding: 14px 16px;
+				transition: 0.3s;
+			}
+			.tab button:hover{
+				background-color: #ddd;
+			}
+			
+			.tab button:active{
+				background-color: #ccc;
+			}
+			
+			.tabcontent{
+				display:none;
+				padding: 6px 12px;
+				border: 1px solid #ccc;
+				border-top:none;
+			}
+			td a{
+	text-decoration:none;
+	color:black;
+}
+    table {
+font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+text-align: center;
+border-collapse: collapse;
+border-spacing: 5px;
+background: #E1E3E0;
+border-radius: 20px;
+margin: 5% auto;
+}
+th {
+font-size: 22px;
+font-weight: 300;
+padding: 12px 10px;
+border-bottom: 2px solid #F56433;
+color: #F56433;
+}
+tbody tr:nth-child(2) {
+border-bottom: 2px solid #F56433;
+}
+td {
+padding: 10px;
+color: #8D8173;
+}
+		</style>
+	</head>
+	<body>
+				
+	<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'Budget')">Бюджет</button>
+  <button class="tablinks" onclick="openCity(event, 'Dol')">Должности</button>
+  <button class="tablinks" onclick="openCity(event, 'Sotr')">Сотрудники</button>
+  <button class="tablinks" onclick="openCity(event, 'Rm')">Cырье</button>
+  <button class="tablinks" onclick="openCity(event, 'Units')">Единицы измерения</button>
+  <button class="tablinks" onclick="openCity(event, 'Ingr')">Ингредиенты</button>
+  <button class="tablinks" onclick="openCity(event, 'Products')">Продукт</button>
+  <button class="tablinks" onclick="openCity(event, 'Pur')">Закупка сырья</button>
+  <button class="tablinks" onclick="openCity(event, 'Sale')">Продажа Продукции</button>
+  <button class="tablinks" onclick="openCity(event, 'Production')">Производство продукции</button>
+	</div>
+
+<!-- Tab content -->
+<div id="Budget" class="tabcontent">
+  <table>
+			<tr>
+				<th>Сумма бюджета</th>
+					<th>Прибыль в процентах</th>
+			</tr>
+			<div th:each="budget : ${budgets}">
+			<tr>
+				<td><a th:href="@{/budget/{id}(id=${budget.getId()})}" th:text="${budget.getBudget()}">user</a></td>
+					<td><a th:href="@{/budget/{id}(id=${budget.getId()})}" th:text="${budget.getPercent()}">user</a></td>
+			</tr>
+			</div>
+		</table>
+				</br>
+</div>
+
+<div id="Dol" class="tabcontent">
+  <table>
+		<tr>
+			<th>Должности</th>
+		</tr>
+		<div th:each="budget : ${doljn}">
+		<tr>
+			<td><a th:href="@{/doljnosti/{id} (id=${budget.getId()})}" th:text="${budget.getName()}">user</a></td>
+		</tr>
+		</div>
+	</table>
+	<a href="/newdoljnost">Добавить</a>
+</div>
+
+<div id="Sotr" class="tabcontent">
+  <table>
+		<tr>
+			<th>ФИО</th>
+			<th>Аддресс</th>
+			<th>Оклад</th>
+			<th>Телефон</th>
+			<th>Должность</th>
+		</tr>
+		<div th:each="budget : ${sotr}">
+		<tr>
+			<td><a th:href="@{/Sotrudniki/{id}(id=${budget.getId()})}" th:text="${budget.getFio()}"></a></td>
+			<td><a th:href="@{/Sotrudniki/{id}(id=${budget.getId()})}" th:text="${budget.getAdres()}"></a></td>
+			<td><a th:href="@{/Sotrudniki/{id}(id=${budget.getId()})}" th:text="${budget.getOklad()}"></a></td>
+			<td><a th:href="@{/Sotrudniki/{id}(id=${budget.getId()})}" th:text="${budget.getPhone()}"></a></td>
+			<td><a th:href="@{/Sotrudniki/{id}(id=${budget.getId()})}" th:text="${budget.getDoljnost().getName()}"></a></td>
+		</tr>
+		</div>
+	</table>
+	<a href="/newSotrudnik">Добавить</a>
+</div>
+
+<div id="Rm" class="tabcontent">
+  <table>
+		<tr>
+			<th>Название</th>
+			<th>Сумма</th>
+			<th>Количество</th>
+			<th>Единица измерения</th>
+		</tr>
+		<div th:each="budget : ${syries}">
+		<tr>
+			<td><a th:href="@{/syriies/{id}(id=${budget.getId()})}" th:text="${budget.getName()}"></a></td>
+			<td><a th:href="@{/syriies/{id}(id=${budget.getId()})}" th:text="${budget.getSumma()}"></a></td>
+			<td><a th:href="@{/syriies/{id}(id=${budget.getId()})}" th:text="${+budget.getKolvo()}"></a></td>
+			<td><a th:href="@{/syriies/{id}(id=${budget.getId()})}" th:text="${budget.getEdinica().getName()}"></a></td>
+		</tr>
+		</div>
+	</table>
+	<a href="/newsyriee">Добавить</a>
+</div>
+
+<div id="Units" class="tabcontent">
+  <table>
+			<tr>
+				<th>Единица измерения</th>
+			</tr>
+			<div th:each="budget : ${edinica}">
+			<tr style="text-align: center;">
+				<td><a th:href="@{/edinicaizmereniyas/{id}(id=${budget.getId()})}" th:text="${budget.getName()}"></a></td>
+			</tr>
+			</div>
+</table>
+<a href="/newedinica">Добавить</a>
+</div>
+
+<div id="Ingr" class="tabcontent">
+<table>
+		<tr>
+			
+			<th>Сырье</th>
+			<th>Продукт</th>
+			<th>Количество</th>
+		</tr>
+		<div th:each="budget : ${ingr}">
+		<tr>
+			<td><a th:href="@{/Ingrediients/{id}(id=${budget.getId()})}" th:text="${budget.getSyrie().getName()}"></a></td>
+			<td><a th:href="@{/Ingrediients/{id}(id=${budget.getId()})}" th:text="${budget.getProduct().getName()}"></a></td>
+			<td><a th:href="@{/Ingrediients/{id}(id=${budget.getId()})}" th:text="${budget.getKolvo()}"></a></td>
+		</tr>
+		</div>
+	</table>
+	<a href="/Ingrediients/new">Добавить</a>
+</div>
+
+<div id="Products" class="tabcontent">
+  <table>
+		<tr>
+			<th>Название</th>
+			<th>Сумма</th>
+			<th>Количество</th>
+			<th>Единица измерения</th>
+		</tr>
+		<div th:each="budget : ${prodd}">
+		<tr>
+			<td><a th:href="@{/products/{id}(id=${budget.getId()})}" th:text="${budget.getName()}"></a></td>
+			<td><a th:href="@{/products/{id}(id=${budget.getId()})}" th:text="${budget.getSumma()}"></a></td>
+			<td><a th:href="@{/products/{id}(id=${budget.getId()})}" th:text="${budget.getKolvo()}"></a></td>
+			<td><a th:href="@{/products/{id}(id=${budget.getId()})}" th:text="${budget.getEdinica().getName()}"></a></td>
+		</tr>
+	</div>
+	</table>
+	<a href="/newproduct">Добавить</a>
+</div>
+
+<div id="Pur" class="tabcontent">
+  <table>
+		<tr>
+			<th>Дата</th>
+			<th>Количество</th>
+			<th>Сумма</th>
+			<th>Сотрудник</th>
+			<th>Сырье</th>
+		</tr>
+		<div th:each="budget : ${zakupka}">
+		<tr>
+			<td><p  th:text="${budget.getDate()}"> </p></td>
+			<td><p  th:text="${budget.getKolvo()}"> </p></td>
+			<td><p  th:text="${budget.getSumma()}"> </p></td>
+			<td><p  th:text="${budget.getSotrudnik().getFio()}"> </p></td>
+			<td><p  th:text="${budget.getSyrie().getName()}"> </p></td>
+			
+		</tr>
+	</div>
+	</table>
+	<a href="/zakupkaSyria/new">Добавить</a>
+</div>
+
+<div id="Sale" class="tabcontent">
+  <table>
+		<tr>
+			<th>Дата</th>
+			<th>Количество</th>
+			<th>Сумма</th>
+			<th>Сотрудник</th>
+			<th>Продукт</th>
+		</tr>
+		<div th:each="budget : ${prodajaproducts}">
+		<tr>
+			<td><p  th:text="${budget.getDate()}"> </p></td>
+			<td><p  th:text="${budget.getKolvo()}"> </p></td>
+			<td><p  th:text="${budget.getSumma()}"> </p></td>
+			<td><p  th:text="${budget.getSotrudnik().getFio()}"> </p></td>
+			<td><p  th:text="${budget.getProduct().getName()}"> </p></td>
+			
+		</tr>
+	</div>
+	</table>
+	</br>
+	<a href="/ProdajaProdukcii/new">Добавить</a>
+</div>
+
+
+<div id="Production" class="tabcontent">
+  <table>
+		<tr>
+			<th>Дата</th>
+			<th>Количество</th>
+			<th>Сумма</th>
+			<th>Сотрудник</th>
+			<th>Продукт</th>
+		</tr>
+		<div th:each="budget : ${production}">
+		<tr>
+			<td><p  th:text="${budget.getDate()}"> </p></td>
+			<td><p  th:text="${budget.getKolvo()}"> </p></td>
+			<td><p  th:text="${budget.getSumma()}"> </p></td>
+			<td><p  th:text="${budget.getSotrudnik().getFio()}"> </p></td>
+			<td><p  th:text="${budget.getProduct().getName()}"> </p></td>
+			
+		</tr>
+	</div>
+	</table>
+	</br>
+	<a href="/production/new">Добавить</a>
+</div>
+
+<script>
+	function openCity(evt,cityName){
+		var i,tabcontent,tablinks;
+		
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i =0; i< tabcontent.length; i++){
+			tabcontent[i].style.display = "none";
+		}
+		
+		tablinks = document.getElementsByClassName('tablinks');
+		for(i =0; i< tablinks.length; i++){
+			tablinks[i].className = tablinks[i].className.replace(" active","")
+		}
+		
+		document.getElementById(cityName).style.display = "block";
+		
+		evt.currentTarget.className += " active";
+	}
+</script>
+	</body>	
+</html>

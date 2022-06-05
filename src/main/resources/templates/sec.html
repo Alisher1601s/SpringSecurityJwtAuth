@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New edinica</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/api/v1/developers}" th:object="${doljnost}">
+<label for ="id">Enter id:</label>
+<input type="text" th:field="*{id}" id="id"/>
+</br>
+    <label for="edin">Enter Doljnost: </label>
+    <input type="text" th:field="*{name}" id="edin"/>
+    <br/>
+    <input type="submit" value="Create!"/>
+</form>
+</body>
+</html>

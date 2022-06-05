@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Сотрудник</title>
+</head>
+<body>
+<p th:text="${sotr.getAdres()}">VALUE</p>
+<p th:text="${sotr.getFio()}">VALUE</p>
+<p th:text="${sotr.getOklad()}">VALUE</p>
+<p th:text="${sotr.getPhone()}">VALUE</p>
+<p th:text="${sotr.getDoljnost().getName()}">VALUE</p>
+</br>
+<a th:href="@{/Sotrudniki/{id}/edit/(id=${sotr.getId()})}"  >Update</a>
+<a href="/Sotrudniki">Сотрудники</a>
+<form th:method="DELETE" th:action="@{/Sotrudniki/{id}(id=${sotr.getId()})}">
+<input type="submit" value="Delete"/>
+</body>
+</html>

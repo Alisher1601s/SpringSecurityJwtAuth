@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New budget</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/budget}" th:object="${budget}">
+<label for ="id">Enter id:</label>
+<input type="text" th:field="*{id}" id="id"/>
+</br>
+    <label for="budget">Enter budget: </label>
+    <input type="text" th:field="*{budget}" id="budget"/>
+    <br/>
+    <input type="submit" value="Create!"/>
+</form>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Zarplata</title>
+     <style>
+    td a{
+	text-decoration:none;
+	color:black;
+}
+        table {
+font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+text-align: center;
+border-collapse: collapse;
+border-spacing: 5px;
+background: #E1E3E0;
+border-radius: 20px;
+margin: 5% auto;
+}
+th {
+font-size: 22px;
+font-weight: 300;
+padding: 12px 10px;
+border-bottom: 2px solid #F56433;
+color: #F56433;
+}
+tbody tr:nth-child(2) {
+border-bottom: 2px solid #F56433;
+}
+td {
+padding: 10px;
+color: #8D8173;
+}
+    </style>
+</head>
+<body>
+<form th:method="GET" th:action="@{/zarplatak}" th:object="${zarplata}">
+<div class="raz">
+</div>
+      <label for="edin2">Enter mounth:</label>
+   <select id="edin2" th:field="*{mounth}" >
+            <option value="1">Январь
+            </option>
+             <option value="2">Февраль
+            </option>
+             <option value="3">Март
+            </option>
+             <option value="4">Апрель
+            </option>
+             <option value="5">Май
+            </option>
+             <option value="6">Июнь
+            </option>
+             <option value="7">Июль
+            </option>
+             <option value="8">Август
+            </option>
+             <option value="9">Сентябрь
+            </option>
+             <option value="10">Октябрь
+            </option>
+             <option value="11">Ноябрь
+            </option>
+             <option value="12">Декабрь
+            </option>
+        </select>
+        </br>
+          <label for="edin" >Enter year:</label>
+          <select id="edin" th:field="*{year}" >
+            <option value="2022">2022
+            </option>
+             <option value="2021">2021
+            </option>
+             <option value="2020">2020
+            </option>         
+        </select>
+    <input type="submit" value="Выдать!"/>
+</form>
+<table>
+		<tr>
+			
+			<th>ФИО</th>
+			<th>Год</th>
+			<th>Месяц</th>
+			<th>Сотрудник</th>
+			<th>Количество участий закупки</th>
+			<th>Количество участий продажи</th>
+			<th>Количество участий производства</th>
+			<th>Общее количество участий</th>
+				<th>Оклад</th>
+					<th>Сумма бонуса</th>
+		</tr>
+		<div th:each="budget : ${zarplatas}">
+		<tr>
+			<td><p  th:text="${budget.getFio()}"> </p> </td>
+			<td><p  th:text="${budget.getYear()}"> </p> </td>
+			<td><p  th:text="${budget.getMounth()}"> </p> </td>
+			<td><p th:text="${budget.getSotrudnik().getFio()}"></p > </td>
+			<td><p th:text="${budget.getKolvozakupka()}"></p > </td>
+			<td><p th:text="${budget.getKolvoprodaja()}"></p ></td>
+				<td><p  th:text="${budget.getKolvoproiz()}"> </p></td>
+				<td><p th:text="${budget.getObweeuchastie()}"> </p></td>
+				<td><p th:text="${budget.getOklad()}"> </p></td>
+				<td><p th:text="${budget.getSummabonusa()}"> </p></td>
+		</tr>
+		</div>
+	</table>
+	</br>
+	<a href="/main">Главная страница</a>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Сырье</title>
+</head>
+<body>
+<p th:text="${syrieid.getKolvo()}">VALUE</p>
+<p th:text="${syrieid.getName()}">VALUE</p>
+<p th:text="${syrieid.getSumma()}">VALUE</p>
+<p th:text="${syrieid.getEdinica().getName()}">VALUE</p>
+<a th:href="@{/syriies/{id}/edit/(id=${syrieid.getId()})}"  >Update</a>
+<form th:method="DELETE" th:action="@{/syriies/{id}/(id=${syrieid.getId()})}">
+<input type="submit" value="Delete"/>
+<a href="/syriies">Cырье</a>
+</body>
+</html>

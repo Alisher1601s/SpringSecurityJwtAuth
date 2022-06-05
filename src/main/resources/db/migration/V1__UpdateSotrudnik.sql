@@ -1,0 +1,1 @@
+ALTER TABLE sotrudnik ALTER COLUMN  fio SET NOT NULL;

@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.crypto.SecretKey;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,12 +21,17 @@ import java.util.Date;
 
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
   private final AuthenticationManager authenticationManager;
+  private final JwtConfig jwtConfig;
+  private final SecretKey SecretKey;
 
 
-  @Autowired
-    public JwtUsernameAndPasswordAuthenticationFilter(AuthenticationManager authenticationManager) {
+
+    public JwtUsernameAndPasswordAuthenticationFilter(AuthenticationManager authenticationManager, JwtConfig jwtConfig,
+                                                      javax.crypto.SecretKey secretKey) {
         this.authenticationManager = authenticationManager;
-    }
+      this.jwtConfig = jwtConfig;
+      SecretKey = secretKey;
+  }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -49,12 +55,13 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                                             HttpServletResponse response,
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
-        String key="securesecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecure";
+     //   String key="securesecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecure";
+     //   SecretKey key1=Keys.hmacShaKeyFor(key.getBytes());
        String token= Jwts.builder().setSubject(authResult.getName()).claim("authorities",authResult.getAuthorities())
-                .setIssuedAt(new Date()).setExpiration(java.sql.Date.valueOf(LocalDate.now().plusWeeks(2)))
-                        .signWith(Keys.hmacShaKeyFor(key.getBytes())).compact();
+                .setIssuedAt(new Date()).setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(jwtConfig.getTokenExpirationAfterDays())))
+                        .signWith(this.SecretKey).compact();
 
-       response.addHeader("Authorization","Bearer " + token);
+       response.addHeader(jwtConfig.getAuthorization(),jwtConfig.getTokenPrefix()+token);
 
  //       super.successfulAuthentication(request, response, chain, authResult);
     }

@@ -1,4 +1,5 @@
 package com.example.demo.security;
+import com.example.demo.jwt.JwtConfig;
 import com.example.demo.jwt.JwtTokenVerifier;
 import com.example.demo.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +15,21 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.crypto.SecretKey;
+
 @Configuration
 @EnableWebSecurity
 public class Security extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetails;
 
+    private final SecretKey secretKey;
+    private final JwtConfig jwtConfig;
+
     @Autowired
-    public Security(@Qualifier("userDetailsImpl") UserDetailsService userDetails) {
+    public Security(@Qualifier("userDetailsImpl") UserDetailsService userDetails, SecretKey secretKey, JwtConfig jwtConfig) {
         this.userDetails = userDetails;
+        this.secretKey = secretKey;
+        this.jwtConfig = jwtConfig;
     }
 
   /*
@@ -46,8 +54,8 @@ public class Security extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
-                .addFilterAfter(new JwtTokenVerifier(),JwtUsernameAndPasswordAuthenticationFilter.class)
+                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(),jwtConfig,secretKey))
+                .addFilterAfter(new JwtTokenVerifier(jwtConfig, secretKey),JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeHttpRequests()
                 .anyRequest().authenticated();
     }
